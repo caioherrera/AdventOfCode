@@ -7,8 +7,10 @@ using namespace std;
 
 typedef long long ll;
 
+// These are the delimiters to be used in order to parse the input
 const set<char> delimiters = { ' ', ':', ';', ',' };
 
+// Struct to store the definition of a single game
 struct Game {
     int id, red, green, blue;
 
@@ -24,11 +26,16 @@ struct Game {
         blue = b;
     }
 
+    // Checks if the current Game instance is valid to be attained from an original Game.
+    // In the context of the problem, checks if a game is valid considering the existing
+    // cubes on the bag.
     bool IsValidFrom(Game g) {
         return red <= g.red && green <= g.green && blue <= g.blue;
     }
 };
 
+// Separates an input row into multiple tokens, by using the previously defined delimiters.
+// The output vector would be something like: ["Game", "1", "3", "blue", "4", "red"...
 vector<string> tokenize(string s) {
     
     vector<string> tokens;
@@ -52,8 +59,11 @@ vector<string> tokenize(string s) {
 Game processInputRow(string s) {
 
     vector<string> tokens = tokenize(s);
+
+    // Captures the Game id from the second token
     Game curr(stoi(tokens[1]));
 
+    // Iterates through the pair of tokens (amount, color) and computes the max amount per color 
     for(int i = 2; i < tokens.size(); i += 2) {
         int currValue = stoi(tokens[i]);
         
@@ -73,6 +83,7 @@ Game processInputRow(string s) {
         }
     }
 
+    // For debugging purposes
     if(DEBUG)
         cout << "Game " << curr.id << ": " << curr.red << " red, " << curr.green << " green, " << curr.blue << " blue" << endl;
 
@@ -82,7 +93,10 @@ Game processInputRow(string s) {
 int main() {
 
     string inputRow;
+
+    // Sets the initial default game
     Game defaultGame(0, 12, 13, 14);
+
     int sumIdsFirstHalf = 0;
     int sumPowerSecondHalf = 0;
     
