@@ -34,4 +34,4 @@
 # Input and output files
 *.in
 *.out
-*.input
+input.txt
