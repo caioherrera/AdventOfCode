@@ -90,9 +90,7 @@ int main() {
         cols = input.length();
         pair<vector<Number>, vector<Symbol>> processedRow = processInputRowForElements(input, rows++);
         numbers.push_back(processedRow.first);
-        for(Symbol s : processedRow.second) {
-            symbols.push_back(s);
-        }
+        symbols.insert(symbols.end(), processedRow.second.begin(), processedRow.second.end());
     }
 
     for(Symbol s : symbols) {
@@ -108,11 +106,12 @@ int main() {
                 }
             }
         }
-        if(DEBUG)
-            cout << "found " << countNumbers << " adjacent to symbol " << s.symbol << " at (" << s.row << ", " << s.col << ")" << endl;
+            
         if(countNumbers == 2 && s.symbol == '*') {
+        
             if(DEBUG)
                 cout << "found gear ratio on symbol at (" << s.row << ", " << s.col << "), partial result = " << partialResult << endl;
+        
             sumGearRatioSecondHalf += partialResult;
         }
     }
